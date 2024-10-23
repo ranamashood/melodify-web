@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import SongsList from "./components/SongsList";
+import { socket } from "./socket";
 
 function App() {
   const [audio, setAudio] = useState<HTMLAudioElement>();
@@ -8,6 +9,8 @@ function App() {
   const [songs, setSongs] = useState<string[]>([]);
 
   useEffect(() => {
+    socket.on("new-song", (newSong: string) => setCurrentSong(newSong));
+
     (async () => {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/get-all-songs`,

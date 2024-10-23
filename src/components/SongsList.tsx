@@ -1,3 +1,5 @@
+import { socket } from "../socket";
+
 interface Props {
   setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
   songs: string[];
@@ -5,7 +7,9 @@ interface Props {
 
 const SongsList = ({ setCurrentSong, songs }: Props) => {
   const changeSong = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setCurrentSong(e.currentTarget.value);
+    const currentSong = e.currentTarget.value;
+    setCurrentSong(currentSong);
+    socket.emit("current-song", currentSong);
   };
 
   return (
