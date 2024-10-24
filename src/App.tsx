@@ -38,6 +38,7 @@ function App() {
 
   return (
     <>
+      <div>{currentSong}</div>
       <VolumeSlider audio={audio} />
       <SocketsList sockets={sockets} />
       <SongsList setCurrentSong={setCurrentSong} songs={songs} />
