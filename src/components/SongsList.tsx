@@ -4,10 +4,10 @@ import { socket } from "../socket";
 interface Props {
   currentSong: string;
   setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
-  songs: string[];
+  filteredSongs: string[];
 }
 
-const SongsList = ({ currentSong, setCurrentSong, songs }: Props) => {
+const SongsList = ({ currentSong, setCurrentSong, filteredSongs }: Props) => {
   const changeSong = (e: React.MouseEvent<HTMLButtonElement>) => {
     const currentSong = e.currentTarget.value;
     setCurrentSong(currentSong);
@@ -16,14 +16,14 @@ const SongsList = ({ currentSong, setCurrentSong, songs }: Props) => {
 
   return (
     <Container>
-      {songs.map((song, index) => (
+      {filteredSongs.map((filteredSong, index) => (
         <Button
           key={index}
           onClick={changeSong}
-          value={song}
-          active={currentSong === song}
+          value={filteredSong}
+          active={currentSong === filteredSong}
         >
-          {song}
+          {filteredSong}
         </Button>
       ))}
     </Container>
@@ -35,8 +35,6 @@ const Container = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   gap: 5px;
-  max-width: 20%;
-  padding: 0 10px;
 `;
 
 const Button = styled.button<{ active: boolean }>`

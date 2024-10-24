@@ -53,6 +53,7 @@ const Container = styled.div`
   display: flex;
   background-color: #16141c;
   color: white;
+  min-height: 100vh;
   max-height: 100vh;
 `;
 
