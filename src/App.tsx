@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import SongsList from "./components/SongsList";
 import { socket } from "./socket";
 import SocketsList from "./components/SocketsList";
+import VolumeSlider from "./components/VolumeSlider";
 
 function App() {
-  const [audio, setAudio] = useState<HTMLAudioElement>();
+  const [audio, setAudio] = useState<HTMLAudioElement>(new Audio());
   const [currentSong, setCurrentSong] = useState<string>("");
   const [songs, setSongs] = useState<string[]>([]);
   const [sockets, setSockets] = useState<string[]>([]);
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <>
+      <VolumeSlider audio={audio} />
       <SocketsList sockets={sockets} />
       <SongsList setCurrentSong={setCurrentSong} songs={songs} />
     </>
