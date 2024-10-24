@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-import SongsList from "./components/SongsList";
+import "./App.css";
 import { socket } from "./socket";
-import SocketsList from "./components/SocketsList";
-import VolumeSlider from "./components/VolumeSlider";
+import Sidebar from "./components/layout/Sidebar";
+import styled from "styled-components";
+import Content from "./components/layout/Content";
 
 function App() {
   const [audio, setAudio] = useState<HTMLAudioElement>(new Audio());
@@ -37,13 +38,22 @@ function App() {
   }, [currentSong]);
 
   return (
-    <>
-      <div>{currentSong}</div>
-      <VolumeSlider audio={audio} />
-      <SocketsList sockets={sockets} />
-      <SongsList setCurrentSong={setCurrentSong} songs={songs} />
-    </>
+    <Container>
+      <Sidebar
+        currentSong={currentSong}
+        setCurrentSong={setCurrentSong}
+        songs={songs}
+      />
+      <Content currentSong={currentSong} audio={audio} sockets={sockets} />
+    </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  background-color: #16141c;
+  color: white;
+  max-height: 100vh;
+`;
 
 export default App;
