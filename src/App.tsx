@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 
 import SongsList from "./components/SongsList";
 import { socket } from "./socket";
+import SocketsList from "./components/SocketsList";
 
 function App() {
   const [audio, setAudio] = useState<HTMLAudioElement>();
   const [currentSong, setCurrentSong] = useState<string>("");
   const [songs, setSongs] = useState<string[]>([]);
+  const [sockets, setSockets] = useState<string[]>([]);
 
   useEffect(() => {
     socket.on("new-song", (newSong: string) => setCurrentSong(newSong));
+    socket.on("sockets", (sockets: string[]) => setSockets(sockets));
 
     (async () => {
       const response = await fetch(
@@ -34,6 +37,7 @@ function App() {
 
   return (
     <>
+      <SocketsList sockets={sockets} />
       <SongsList setCurrentSong={setCurrentSong} songs={songs} />
     </>
   );
