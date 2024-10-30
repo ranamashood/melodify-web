@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import SongsList from "../SongsList";
 import SearchSongs from "../SearchSongs";
 import styled from "styled-components";
+import { SongInterface } from "../../models";
 
 interface Props {
   currentSong: string;
   setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
-  songs: string[];
+  songs: SongInterface[];
 }
 
 const Sidebar = ({ currentSong, setCurrentSong, songs }: Props) => {
-  const [filteredSongs, setFilteredSongs] = useState<string[]>(songs);
+  const [filteredSongs, setFilteredSongs] = useState<SongInterface[]>(songs);
 
   useEffect(() => {
     setFilteredSongs(songs);

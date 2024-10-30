@@ -1,15 +1,16 @@
 import styled from "styled-components";
+import { SongInterface } from "../models";
 
 interface Props {
-  songs: string[];
-  setFilteredSongs: React.Dispatch<React.SetStateAction<string[]>>;
+  songs: SongInterface[];
+  setFilteredSongs: React.Dispatch<React.SetStateAction<SongInterface[]>>;
 }
 
 const SearchSongs = ({ songs, setFilteredSongs }: Props) => {
   const filterSongs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.currentTarget.value.toLowerCase();
     setFilteredSongs(
-      songs.filter((song) => song.toLowerCase().includes(query)),
+      songs.filter((song) => song.filename.toLowerCase().includes(query)),
     );
   };
 

@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { socket } from "../socket";
+import { SongInterface } from "../models";
+import { SiApplemusic } from "react-icons/si";
 
 interface Props {
   currentSong: string;
   setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
-  filteredSongs: string[];
+  filteredSongs: SongInterface[];
 }
 
 const SongsList = ({ currentSong, setCurrentSong, filteredSongs }: Props) => {
@@ -20,10 +22,15 @@ const SongsList = ({ currentSong, setCurrentSong, filteredSongs }: Props) => {
         <Button
           key={index}
           onClick={changeSong}
-          value={filteredSong}
-          active={currentSong === filteredSong}
+          value={filteredSong.filename}
+          active={currentSong === filteredSong.filename}
         >
-          {filteredSong}
+          {filteredSong.image ? (
+            <Img src={filteredSong.image} />
+          ) : (
+            <SiApplemusic style={{ fontSize: "1.7rem" }} />
+          )}
+          {filteredSong.filename}
         </Button>
       ))}
     </Container>
@@ -38,6 +45,9 @@ const Container = styled.div`
 `;
 
 const Button = styled.button<{ active: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 10px;
   border: none;
   outline: none;
   color: inherit;
@@ -50,6 +60,14 @@ const Button = styled.button<{ active: boolean }>`
   &:hover {
     background-color: #24212b;
   }
+`;
+
+const Img = styled.img`
+  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  object-position: center;
 `;
 
 export default SongsList;

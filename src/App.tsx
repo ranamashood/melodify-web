@@ -5,11 +5,12 @@ import { socket } from "./socket";
 import Sidebar from "./components/layout/Sidebar";
 import styled from "styled-components";
 import Content from "./components/layout/Content";
+import { SongInterface } from "./models";
 
 function App() {
   const [audio, setAudio] = useState<HTMLAudioElement>(new Audio());
   const [currentSong, setCurrentSong] = useState<string>("");
-  const [songs, setSongs] = useState<string[]>([]);
+  const [songs, setSongs] = useState<SongInterface[]>([]);
   const [sockets, setSockets] = useState<string[]>([]);
 
   useEffect(() => {
