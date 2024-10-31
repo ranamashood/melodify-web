@@ -28,6 +28,7 @@ const Input = styled.input`
   padding: 10px;
   cursor: pointer;
   text-align: left;
+  flex: 1;
 `;
 
 export default SearchSongs;
