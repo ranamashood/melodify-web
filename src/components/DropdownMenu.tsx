@@ -9,8 +9,9 @@ interface Props {
 const DropdownMenu = ({ menuItems }: Props) => {
   return (
     <Container>
-      {menuItems.map((menuItem) => (
+      {menuItems.map((menuItem, index) => (
         <Button
+          key={index}
           title={menuItem.title}
           Icon={menuItem.Icon}
           onClick={menuItem.onClick}
