@@ -12,7 +12,7 @@ interface Props {
 const Content = ({ currentSong, audio, sockets }: Props) => {
   return (
     <Container>
-      <Song filename={currentSong} />
+      <Song filename={currentSong} audio={audio} />
       <VolumeSlider audio={audio} />
       <SocketsList sockets={sockets} />
     </Container>

@@ -2,13 +2,23 @@ import { useEffect, useState } from "react";
 import { SongInterface } from "../models";
 import styled from "styled-components";
 import { SiApplemusic } from "react-icons/si";
+import Button from "./Button";
+import { FaPause, FaPlay } from "react-icons/fa";
+import { socket } from "../socket";
 
 interface Props {
   filename: string;
+  audio: HTMLAudioElement;
 }
 
-const Song = ({ filename }: Props) => {
+const Song = ({ filename, audio }: Props) => {
   const [song, setSong] = useState<SongInterface>({} as SongInterface);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  useEffect(() => {
+    socket.on("pause", () => setIsPlaying(false));
+    socket.on("play", () => setIsPlaying(true));
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -21,12 +31,24 @@ const Song = ({ filename }: Props) => {
   }, [filename]);
 
   useEffect(() => {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      artist: song.artist,
-      title: song.title,
-      artwork: [{ src: song.image }],
-    });
+    if (song.title) {
+      setIsPlaying(true);
+
+      navigator.mediaSession.metadata = new MediaMetadata({
+        artist: song.artist,
+        title: song.title,
+        artwork: [{ src: song.image }],
+      });
+    }
   }, [song]);
+
+  useEffect(() => {
+    isPlaying ? audio.play() : audio.pause();
+  }, [isPlaying]);
+
+  const playPause = () => {
+    isPlaying ? socket.emit("pause") : socket.emit("play");
+  };
 
   return (
     <Container>
@@ -38,6 +60,13 @@ const Song = ({ filename }: Props) => {
       <Details>
         {song.artist} - {song.title}
       </Details>
+      <div>
+        <Button
+          onClick={playPause}
+          Icon={isPlaying ? FaPause : FaPlay}
+          circle
+        />
+      </div>
     </Container>
   );
 };
