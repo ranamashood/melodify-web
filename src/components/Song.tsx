@@ -20,6 +20,14 @@ const Song = ({ filename }: Props) => {
     })();
   }, [filename]);
 
+  useEffect(() => {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      artist: song.artist,
+      title: song.title,
+      artwork: [{ src: song.image }],
+    });
+  }, [song]);
+
   return (
     <Container>
       {song.image ? (
