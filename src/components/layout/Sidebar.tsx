@@ -11,7 +11,6 @@ import {
   FaSortNumericDown,
   FaSortNumericDownAlt,
 } from "react-icons/fa";
-import DropdownMenu from "../DropdownMenu";
 import Dropdown from "../Dropdown";
 
 interface Props {
@@ -75,13 +74,12 @@ const Sidebar = ({ currentSong, setCurrentSong, songs }: Props) => {
     <Container>
       <Filters>
         <SearchSongs songs={songs} setFilteredSongs={setFilteredSongs} />
-        <Dropdown>
+        <Dropdown menuItems={sortOptions} showDropdown={showDropdown}>
           <Button
             onClick={() => setShowDropdown(!showDropdown)}
             Icon={FaSortAmountDown}
             active={true}
           />
-          {showDropdown && <DropdownMenu menuItems={sortOptions} />}
         </Dropdown>
       </Filters>
       <SongsList
