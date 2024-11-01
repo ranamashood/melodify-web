@@ -34,6 +34,8 @@ const Song = ({ filename, audio }: Props) => {
     if (song.title) {
       setIsPlaying(true);
 
+      document.title = `${song.artist} • ${song.title}`;
+
       navigator.mediaSession.metadata = new MediaMetadata({
         artist: song.artist,
         title: song.title,
