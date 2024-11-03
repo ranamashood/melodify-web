@@ -25,8 +25,10 @@ const SongsList = ({ currentSong, setCurrentSong, filteredSongs }: Props) => {
           value={filteredSong.filename}
           active={currentSong === filteredSong.filename}
         >
-          {filteredSong.image ? (
-            <Img src={filteredSong.image} />
+          {filteredSong.thumbnail ? (
+            <Img
+              src={`${import.meta.env.VITE_API_URL}/images/${filteredSong.thumbnail}`}
+            />
           ) : (
             <SiApplemusic style={{ fontSize: "1.7rem" }} />
           )}

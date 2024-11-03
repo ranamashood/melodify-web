@@ -5,6 +5,7 @@ export interface SongInterface {
   title: string;
   artist: string;
   image: string;
+  thumbnail: string;
   uploadedTime: number;
 }
 

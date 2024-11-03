@@ -9,6 +9,7 @@ import { SongInterface } from "./models";
 
 function App() {
   const [audio, setAudio] = useState<HTMLAudioElement>(new Audio());
+  // TODO: switch currentSong from string to Song
   const [currentSong, setCurrentSong] = useState<string>("");
   const [songs, setSongs] = useState<SongInterface[]>([]);
   const [sockets, setSockets] = useState<string[]>([]);
@@ -22,7 +23,7 @@ function App() {
         `${import.meta.env.VITE_API_URL}/get-all-songs`,
       );
       const data = await response.json();
-      setSongs(data.songs);
+      setSongs(data);
     })();
   }, []);
 

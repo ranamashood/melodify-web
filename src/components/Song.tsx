@@ -41,6 +41,9 @@ const Song = ({ filename, audio }: Props) => {
         title: song.title,
         artwork: [{ src: song.image }],
       });
+
+      // TODO: use setStateAction for handling pause and play actions
+      console.log(navigator.mediaSession.playbackState);
     }
   }, [song]);
 
@@ -55,7 +58,7 @@ const Song = ({ filename, audio }: Props) => {
   return (
     <Container>
       {song.image ? (
-        <Img src={song.image} />
+        <Img src={`${import.meta.env.VITE_API_URL}/images/${song.image}`} />
       ) : (
         <SiApplemusic style={{ fontSize: "21rem", width: "400px" }} />
       )}
