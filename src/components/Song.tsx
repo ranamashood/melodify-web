@@ -47,7 +47,9 @@ const Song = ({ filename, audio }: Props) => {
       navigator.mediaSession.metadata = new MediaMetadata({
         artist: song.artist,
         title: song.title,
-        artwork: [{ src: song.image }],
+        artwork: [
+          { src: `${import.meta.env.VITE_API_URL}/images/${song.image}` },
+        ],
       });
 
       // TODO: use setStateAction for handling pause and play actions
