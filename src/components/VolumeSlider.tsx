@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Slider from "./Slider";
 
 interface Props {
   audio: HTMLAudioElement;
@@ -13,15 +14,7 @@ const VolumeSlider = ({ audio }: Props) => {
     audio.volume = newVolume / 100;
   };
 
-  return (
-    <input
-      type="range"
-      min="0"
-      max="100"
-      value={volume}
-      onChange={changeVolume}
-    />
-  );
+  return <Slider min={0} max={100} value={volume} onChange={changeVolume} />;
 };
 
 export default VolumeSlider;

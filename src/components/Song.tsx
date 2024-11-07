@@ -5,6 +5,7 @@ import { SiApplemusic } from "react-icons/si";
 import Button from "./Button";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { socket } from "../socket";
+import SeekSlider from "./SeekSlider";
 
 interface Props {
   filename: string;
@@ -14,10 +15,17 @@ interface Props {
 const Song = ({ filename, audio }: Props) => {
   const [song, setSong] = useState<SongInterface>({} as SongInterface);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<number>(0);
 
   useEffect(() => {
     socket.on("pause", () => setIsPlaying(false));
     socket.on("play", () => setIsPlaying(true));
+
+    socket.on("new-seek", (newSeek: number) => (audio.currentTime = newSeek));
+
+    audio.addEventListener("timeupdate", () =>
+      setCurrentTime(audio.currentTime),
+    );
   }, []);
 
   useEffect(() => {
@@ -60,41 +68,59 @@ const Song = ({ filename, audio }: Props) => {
       {song.image ? (
         <Img src={`${import.meta.env.VITE_API_URL}/images/${song.image}`} />
       ) : (
-        <SiApplemusic style={{ fontSize: "21rem", width: "400px" }} />
+        <SiApplemusic style={{ fontSize: "300px" }} />
       )}
-      <Details>
-        {song.artist} - {song.title}
-      </Details>
-      <div>
-        <Button
-          onClick={playPause}
-          Icon={isPlaying ? FaPause : FaPlay}
-          circle
-        />
-      </div>
+      <MainContent>
+        <Details>
+          {song.artist} - {song.title}
+        </Details>
+        <Controls>
+          <Button
+            onClick={playPause}
+            Icon={isPlaying ? FaPause : FaPlay}
+            circle
+          />
+          <SeekSlider duration={song.duration} currentTime={currentTime} />
+        </Controls>
+      </MainContent>
     </Container>
   );
 };
 
 const Container = styled.div`
-  max-width: 400px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
-  font-size: 1.5rem;
+  gap: 100px;
+  font-size: 2rem;
   background-color: #292733;
-  padding: 30px;
-  padding-bottom: 20px;
+  padding: 10px;
   border-radius: 15px;
 `;
 
 const Img = styled.img`
   border-radius: 12px;
-  width: 100%;
+  width: 300px;
+`;
+
+const MainContent = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Controls = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
 `;
 
 const Details = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
 `;
 
