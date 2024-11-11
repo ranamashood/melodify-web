@@ -33,8 +33,7 @@ const StyledButton = styled.button<{ active: boolean; circle: boolean }>`
   color: inherit;
   background-color: ${(props) => (props.active ? "#292733" : "#16141c")};
   border-radius: ${(props) => (props.circle ? "50%" : "10px")};
-  padding: ${(props) => (props.circle ? "20px" : "10px")};
-  font-size: ${(props) => props.circle && "1.2rem"};
+  padding: ${(props) => (props.circle ? "12px" : "10px")};
   cursor: pointer;
   text-align: left;
 
