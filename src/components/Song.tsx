@@ -1,45 +1,12 @@
-import { useEffect, useState } from "react";
 import { SongInterface } from "../models";
 import styled from "styled-components";
 import { SiApplemusic } from "react-icons/si";
 
 interface Props {
-  filename: string;
-  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+  song: SongInterface;
 }
 
-const Song = ({ filename, setIsPlaying }: Props) => {
-  const [song, setSong] = useState<SongInterface>({} as SongInterface);
-
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/song-metadata/${filename}`,
-      );
-      const data = await response.json();
-      setSong(data);
-    })();
-  }, [filename]);
-
-  useEffect(() => {
-    if (song.title) {
-      setIsPlaying(true);
-
-      document.title = `${song.artist} • ${song.title}`;
-
-      navigator.mediaSession.metadata = new MediaMetadata({
-        artist: song.artist,
-        title: song.title,
-        artwork: [
-          { src: `${import.meta.env.VITE_API_URL}/images/${song.image}` },
-        ],
-      });
-
-      // TODO: use setStateAction for handling pause and play actions
-      console.log(navigator.mediaSession.playbackState);
-    }
-  }, [song]);
-
+const Song = ({ song }: Props) => {
   return (
     <Container>
       {song.image ? (

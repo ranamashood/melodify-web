@@ -8,11 +8,12 @@ import VolumeSlider from "./VolumeSlider";
 
 interface Props {
   audio: HTMLAudioElement;
+  duration: number;
   isPlaying: boolean;
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SongControls = ({ audio, isPlaying, setIsPlaying }: Props) => {
+const SongControls = ({ audio, duration, isPlaying, setIsPlaying }: Props) => {
   const [currentTime, setCurrentTime] = useState<number>(0);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const SongControls = ({ audio, isPlaying, setIsPlaying }: Props) => {
     socket.on("new-seek", (newSeek: number) => (audio.currentTime = newSeek));
 
     audio.addEventListener("timeupdate", () =>
-      setCurrentTime(audio.currentTime),
+      setCurrentTime(Math.floor(audio.currentTime)),
     );
   }, []);
 
@@ -32,7 +33,6 @@ const SongControls = ({ audio, isPlaying, setIsPlaying }: Props) => {
 
   const playPause = () => {
     isPlaying ? socket.emit("pause") : socket.emit("play");
-    console.log(audio.duration);
   };
 
   return (
@@ -45,7 +45,7 @@ const SongControls = ({ audio, isPlaying, setIsPlaying }: Props) => {
         />
       </UpperContainer>
       <LowerContainer>
-        <SeekSlider duration={audio.duration} currentTime={currentTime} />
+        <SeekSlider duration={duration} currentTime={currentTime} />
         <VolumeContainer>
           <VolumeSlider audio={audio} />
         </VolumeContainer>
