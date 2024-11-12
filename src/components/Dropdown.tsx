@@ -45,6 +45,7 @@ const Menu = styled.div`
   padding: 10px;
   border: 2px solid #6d4aff;
   border-radius: 12px;
+  z-index: 1;
 `;
 
 export default Dropdown;
