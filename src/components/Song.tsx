@@ -10,7 +10,9 @@ const Song = ({ song }: Props) => {
   return (
     <Container>
       {song.image ? (
-        <Img src={`${import.meta.env.VITE_API_URL}/images/${song.image}`} />
+        <Img
+          src={`${import.meta.env.VITE_API_URL}/uploads/images/${song.image}`}
+        />
       ) : (
         <SiApplemusic style={{ fontSize: "400px" }} />
       )}

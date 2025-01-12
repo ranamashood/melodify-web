@@ -18,7 +18,7 @@ const Content = ({ currentSong, audio, sockets }: Props) => {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/song-metadata/${currentSong}`,
+        `${import.meta.env.VITE_API_URL}/songs/${currentSong}`,
       );
       const data = await response.json();
       setSong(data);
@@ -35,7 +35,9 @@ const Content = ({ currentSong, audio, sockets }: Props) => {
         artist: song.artist,
         title: song.title,
         artwork: [
-          { src: `${import.meta.env.VITE_API_URL}/images/${song.image}` },
+          {
+            src: `${import.meta.env.VITE_API_URL}/uploads/images/${song.image}`,
+          },
         ],
       });
 

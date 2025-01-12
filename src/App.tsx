@@ -19,16 +19,14 @@ function App() {
     socket.on("sockets", (sockets: string[]) => setSockets(sockets));
 
     (async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/get-all-songs`,
-      );
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/songs`);
       const data = await response.json();
       setSongs(data);
     })();
   }, []);
 
   useEffect(() => {
-    const url = `${import.meta.env.VITE_API_URL}/songs/${currentSong}`;
+    const url = `${import.meta.env.VITE_API_URL}/uploads/songs/${currentSong}`;
 
     if (!audio) {
       setAudio(new Audio(url));
