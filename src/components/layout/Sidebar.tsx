@@ -14,12 +14,12 @@ import {
 import Dropdown from "../Dropdown";
 
 interface Props {
-  currentSong: string;
-  setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
+  song: SongInterface;
+  setSong: React.Dispatch<React.SetStateAction<SongInterface>>;
   songs: SongInterface[];
 }
 
-const Sidebar = ({ currentSong, setCurrentSong, songs }: Props) => {
+const Sidebar = ({ song, setSong, songs }: Props) => {
   const [filteredSongs, setFilteredSongs] = useState<SongInterface[]>(songs);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
@@ -82,11 +82,7 @@ const Sidebar = ({ currentSong, setCurrentSong, songs }: Props) => {
           />
         </Dropdown>
       </Filters>
-      <SongsList
-        currentSong={currentSong}
-        setCurrentSong={setCurrentSong}
-        filteredSongs={filteredSongs}
-      />
+      <SongsList song={song} setSong={setSong} filteredSongs={filteredSongs} />
     </Container>
   );
 };

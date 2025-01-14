@@ -6,24 +6,13 @@ import SongControls from "../SongControls";
 import { SongInterface } from "../../models";
 
 interface Props {
-  currentSong: string;
+  song: SongInterface;
   audio: HTMLAudioElement;
   sockets: string[];
 }
 
-const Content = ({ currentSong, audio, sockets }: Props) => {
-  const [song, setSong] = useState<SongInterface>({} as SongInterface);
+const Content = ({ song, audio, sockets }: Props) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/songs/${currentSong}`,
-      );
-      const data = await response.json();
-      setSong(data);
-    })();
-  }, [currentSong]);
 
   useEffect(() => {
     if (song.title) {

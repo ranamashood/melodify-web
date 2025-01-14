@@ -4,15 +4,15 @@ import { SongInterface } from "../models";
 import { SiApplemusic } from "react-icons/si";
 
 interface Props {
-  currentSong: string;
-  setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
+  song: SongInterface;
+  setSong: React.Dispatch<React.SetStateAction<SongInterface>>;
   filteredSongs: SongInterface[];
 }
 
-const SongsList = ({ currentSong, setCurrentSong, filteredSongs }: Props) => {
+const SongsList = ({ song, setSong, filteredSongs }: Props) => {
   const changeSong = (e: React.MouseEvent<HTMLButtonElement>) => {
     const currentSong = e.currentTarget.value;
-    setCurrentSong(currentSong);
+    setSong(filteredSongs.find((song) => song.filename === currentSong)!);
     socket.emit("current-song", currentSong);
   };
 
@@ -23,7 +23,7 @@ const SongsList = ({ currentSong, setCurrentSong, filteredSongs }: Props) => {
           key={index}
           onClick={changeSong}
           value={filteredSong.filename}
-          active={currentSong === filteredSong.filename}
+          active={filteredSong.filename === song.filename}
         >
           {filteredSong.thumbnail ? (
             <Img

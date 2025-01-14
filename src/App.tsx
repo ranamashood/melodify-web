@@ -10,12 +10,11 @@ import { SongInterface } from "./models";
 function App() {
   const [audio, setAudio] = useState<HTMLAudioElement>(new Audio());
   // TODO: switch currentSong from string to Song
-  const [currentSong, setCurrentSong] = useState<string>("");
+  const [song, setSong] = useState<SongInterface>({} as SongInterface);
   const [songs, setSongs] = useState<SongInterface[]>([]);
   const [sockets, setSockets] = useState<string[]>([]);
 
   useEffect(() => {
-    socket.on("new-song", (newSong: string) => setCurrentSong(newSong));
     socket.on("sockets", (sockets: string[]) => setSockets(sockets));
 
     (async () => {
@@ -26,7 +25,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const url = `${import.meta.env.VITE_API_URL}/uploads/songs/${currentSong}`;
+    socket.on("new-song", (newSong: string) =>
+      setSong(songs.find((song) => song.filename === newSong)!),
+    );
+  }, [songs]);
+
+  useEffect(() => {
+    const url = `${import.meta.env.VITE_API_URL}/uploads/songs/${song.filename}`;
 
     if (!audio) {
       setAudio(new Audio(url));
@@ -35,16 +40,12 @@ function App() {
 
     audio.src = url;
     audio.play();
-  }, [currentSong]);
+  }, [song]);
 
   return (
     <Container>
-      <Sidebar
-        currentSong={currentSong}
-        setCurrentSong={setCurrentSong}
-        songs={songs}
-      />
-      <Content currentSong={currentSong} audio={audio} sockets={sockets} />
+      <Sidebar song={song} setSong={setSong} songs={songs} />
+      <Content song={song} audio={audio} sockets={sockets} />
     </Container>
   );
 }
