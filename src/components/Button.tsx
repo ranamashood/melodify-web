@@ -17,23 +17,23 @@ const Button = ({
   circle = false,
 }: Props) => {
   return (
-    <StyledButton onClick={onClick} active={active} circle={circle}>
+    <StyledButton onClick={onClick} $active={active} $circle={circle}>
       {Icon && <Icon />}
       {title && title}
     </StyledButton>
   );
 };
 
-const StyledButton = styled.button<{ active: boolean; circle: boolean }>`
+const StyledButton = styled.button<{ $active: boolean; $circle: boolean }>`
   display: flex;
   align-items: center;
   gap: 7px;
   border: none;
   outline: none;
   color: inherit;
-  background-color: ${(props) => (props.active ? "#292733" : "#16141c")};
-  border-radius: ${(props) => (props.circle ? "50%" : "10px")};
-  padding: ${(props) => (props.circle ? "12px" : "10px")};
+  background-color: ${(props) => (props.$active ? "#292733" : "#16141c")};
+  border-radius: ${(props) => (props.$circle ? "50%" : "10px")};
+  padding: ${(props) => (props.$circle ? "12px" : "10px")};
   cursor: pointer;
   text-align: left;
 

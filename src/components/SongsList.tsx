@@ -23,7 +23,7 @@ const SongsList = ({ song, setSong, filteredSongs }: Props) => {
           key={index}
           onClick={changeSong}
           value={filteredSong.filename}
-          active={filteredSong.filename === song.filename}
+          $active={filteredSong.filename === song.filename}
         >
           {filteredSong.thumbnail ? (
             <Img
@@ -81,14 +81,14 @@ const Container = styled.div`
   }
 `;
 
-const Button = styled.button<{ active: boolean }>`
+const Button = styled.button<{ $active: boolean }>`
   display: flex;
   align-items: center;
   gap: 10px;
   border: none;
   outline: none;
   color: inherit;
-  background-color: ${(props) => (props.active ? "#24212B" : "#16141c")};
+  background-color: ${(props) => (props.$active ? "#24212B" : "#16141c")};
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
