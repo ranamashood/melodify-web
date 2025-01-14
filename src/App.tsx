@@ -31,7 +31,7 @@ function App() {
   }, [songs]);
 
   useEffect(() => {
-    const url = `${import.meta.env.VITE_API_URL}/uploads/songs/${song.filename}`;
+    const url = `${import.meta.env.VITE_API_URL}/uploads/songs/${encodeURIComponent(song.filename)}`;
 
     if (!audio) {
       setAudio(new Audio(url));

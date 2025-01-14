@@ -27,7 +27,7 @@ const SongsList = ({ song, setSong, filteredSongs }: Props) => {
         >
           {filteredSong.thumbnail ? (
             <Img
-              src={`${import.meta.env.VITE_API_URL}/uploads/images/${filteredSong.thumbnail}`}
+              src={`${import.meta.env.VITE_API_URL}/uploads/images/${encodeURIComponent(filteredSong.thumbnail)}`}
             />
           ) : (
             <SiApplemusic style={{ fontSize: "1.7rem" }} />

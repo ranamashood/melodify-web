@@ -25,7 +25,7 @@ const Content = ({ song, audio, sockets }: Props) => {
         title: song.title,
         artwork: [
           {
-            src: `${import.meta.env.VITE_API_URL}/uploads/images/${song.image}`,
+            src: `${import.meta.env.VITE_API_URL}/uploads/images/${encodeURIComponent(song.image)}`,
           },
         ],
       });
