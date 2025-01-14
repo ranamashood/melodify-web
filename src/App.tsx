@@ -9,7 +9,6 @@ import { SongInterface } from "./models";
 
 function App() {
   const [audio, setAudio] = useState<HTMLAudioElement>(new Audio());
-  // TODO: switch currentSong from string to Song
   const [song, setSong] = useState<SongInterface>({} as SongInterface);
   const [songs, setSongs] = useState<SongInterface[]>([]);
   const [sockets, setSockets] = useState<string[]>([]);
